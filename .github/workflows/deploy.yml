@@ -20,7 +20,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: '.'
-          target: '/testgit'
+          target: '/testegit'
 
       - name: 'build da aplicaçao'
         uses: appleboy/ssh-action@v1.1.0
