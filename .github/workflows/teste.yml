@@ -1,0 +1,28 @@
+name: 'Deploy para VPS'
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  simple_test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 'Baixar o código'
+        uses: actions/checkout@v4
+
+      - name: 'Criar arquivo no servidor'
+        uses: appleboy/ssh-action@v1.1.0
+        with:
+          host: 'seu-host'
+          username: 'seu-usuario'
+          key: |
+            -----BEGIN OPENSSH PRIVATE KEY-----
+            SMIIEpAIBAAKCAQEA4hCSmydK+iJYjPJPJKSqowDZaQYE7SH61DRJPBKr7VD5up9CWZlzOVqhySc/69hSh7eLi66kTLOCwVj+zuYdBOUonjqp3nHpyZJJUyZ6xYmAnyStY9k3Dvamx9C42e5nbCce6RQrONc2Aqiol1fd3tfvD0LyrcPCoFqHNcJrwNl+pRiKbF9Z8dyUQEjGuIp37XTtDo/qkHoD3xequSV5DeeHUmQSleni0fi+j2ER7mCZOCWGvMGwc+KQmoRFxIzVSViBxflquS1F9pxdCAkmg19RouJfsQCBt01Y9kv9JDLJ1ze71DKrOqijN+F9XmdJWKzsR1FWPH2dasYeGnB+TwIDAQABAoIBAB/oOukPOLPpWRo7sRP48eSj4AvEv7lAjIibAKMr93w9a6H9jH3c/LhhpGgh1BHTrIJfU6DZe3Mf+xqTFxPYwsvIFF2Q5hzxcw/yR8smqTlsWO0dXiOzquO/yHZ3bT/FOG+5bdFz+U3CgmsJpxIFYtlrHODIkDwaX0QGwwLBeDf1ts3MOSw6hjsITchS3T4npAie3PjTLOqPRTqMJdzeINMulPxv4wajyN5brt8MXLOMYICC4o9YELh5TzgdLsabbEV7LMAPPEPRvbLfhsCdXWjMlXPGtgvH7JzWW0sUXLLhQxfF94RSi84jq8oYoON7+uB2jW63S35n8c0pUDsGXrECgYEA9trMw1AIW/dtnBzdB8EE4rzIg7XIWojO9SgUrf3c3I2TY85PnygOFjVit1OBz11NJuOFX/LLLeeciKxIH3xFPS22WrtSmKrbk9Hmkb2iwHEXBpnBe35KPD1szP4j65iZJ1nMlQmOUTRp98EwNkxhesMk+c2sCAD03C6usJHxQFsCgYEA6nCZL/0vdWIlqVskTKNdAUi5+97WII9GGjummC93ZEiNCQegOljp0RdXD0uAnbucfsKSAdz8ip1D/dE4QBT2pWwvWO8yoQpxwfT2nvNGEqcC/HtsrB0SCHUzZ3P8reDlzIc95M4ERaLZKEmRz5BPeDlGsNlF0ZbvUKzBihXK3B0CgYBzodxm5Rd1VPrANPkIh87tEvduUvmuBwXC6up88jzCB4NyLhM3/4BRwOIj8/cLlq3sOImif03Ti/nUP7dtID4iwUX5TGQNZYODw8AYptcVBCSAEAgE/Ax0GWXcxHM5Cfs75qGhcp96xG2bA6C83pyO79hjN4eNHD2W4jssNMDonwKBgQCMbkBEr7uy68S1iqPWyHCYqVDG3/eR72DFq/+h36T7zD23L/s5mDMPDZUX01lKoqwefjxpo08fVQ76Rk4UjLol4wUFl9rS/megEDV+hyjtWV9/kAtLmepIaLQO/zpXiYT9m/FmUkXa1K6R5GfUVpRT5rNCkhOxdWELCUCxj1ZBvQKBgQDGnigEGSzE6PTzPVI5tX5LlqklkKfjx0m44++kB6RWz3t54b8DOIBTWeS1rokkPVNRtHz7d9HxwQhdl5311Bialtuvvg22Xk58MAiDG+CYnyMQr9gP/IWHD/AJLI0yUjal8D4EoToI2YqqADgk8JtXaTlOrB/AuJOb8HJQ2mC02g==
+            -----END OPENSSH PRIVATE KEY-----
+          script: |
+            touch ~/arquivo_de_teste.txt
+            ls -l ~/
+          debug: true
