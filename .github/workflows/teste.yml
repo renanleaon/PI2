@@ -16,10 +16,10 @@ jobs:
       - name: 'Criar arquivo no servidor'
         uses: appleboy/ssh-action@v1.1.0
         with:
-          host: '164.152.34.246'
-          username: 'ubuntu'
+          host: '${{ secrets.HOST }}'
+          username: '${{ secrets.USERNAME }}'
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            touch ~/arquivo_de_teste.txt
+            touch ~/arquivo_de_teste22.txt
             ls -l ~/
           debug: true
