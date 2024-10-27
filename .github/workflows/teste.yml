@@ -16,18 +16,18 @@ jobs:
       - name: 'Copiar arquivos para VPS'
         uses: appleboy/scp-action@v0.1.7
         with:
-          host: 'host'
-          username: 'ubuntu'
-          key: 'sh_private_key'
+          host: '${{ secrets.HOST }}'
+          username: '${{ secrets.USERNAME }}'
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: '.'
           target: '/testegit'
 
       - name: 'build da aplicaçao'
         uses: appleboy/ssh-action@v1.1.0
         with:
-          host: 'host'
-          username: 'ubuntu'
-          key: 'sh_private_key'
+          host: '${{ secrets.HOST }}'
+          username: '${{ secrets.USERNAME }}'
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
 
           script: |
             cd /testgit
