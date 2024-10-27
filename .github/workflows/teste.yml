@@ -6,20 +6,31 @@ on:
       - main
 
 jobs:
-  simple_test:
+  build_deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: 'Baixar o código'
         uses: actions/checkout@v4
 
-      - name: 'Criar arquivo no servidor'
+      - name: 'Copiar arquivos para VPS'
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: 'host'
+          username: 'ubuntu'
+          key: ''
+          source: '.'
+          target: '/testegit'
+
+      - name: 'build da aplicaçao'
         uses: appleboy/ssh-action@v1.1.0
         with:
-          host: '${{ secrets.HOST }}'
-          username: '${{ secrets.USERNAME }}'
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          host: 'host'
+          username: 'ubuntu'
+          key: ''
+
           script: |
-            touch ~/arquivo_de_teste22.txt
-            ls -l ~/
-          debug: true
+            cd /testgit
+            composer install --no-dev --no-progress -a
+            php artisan optimize
+            chown -R ubuntu:ubuntu .
