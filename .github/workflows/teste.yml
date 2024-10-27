@@ -18,7 +18,7 @@ jobs:
         with:
           host: 'host'
           username: 'ubuntu'
-          key: ''
+          key: 'sh_private_key'
           source: '.'
           target: '/testegit'
 
@@ -27,7 +27,7 @@ jobs:
         with:
           host: 'host'
           username: 'ubuntu'
-          key: ''
+          key: 'sh_private_key'
 
           script: |
             cd /testgit
