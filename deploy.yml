@@ -20,17 +20,4 @@ jobs:
           username: 'ubuntu'
           key: ''
           source: '.'
-          target: '/testegit'
-
-      - name: 'build da aplicaçao'
-        uses: appleboy/ssh-action@v1.1.0
-        with:
-          host: 'host'
-          username: 'ubuntu'
-          key: ''
-
-          script: |
-            cd /testgit
-            composer install --no-dev --no-progress -a
-            php artisan optimize
-            chown -R ubuntu:ubuntu .
+          target: '/testegit'.
