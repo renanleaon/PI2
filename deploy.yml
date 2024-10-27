@@ -20,4 +20,4 @@ jobs:
           username: 'ubuntu'
           key: ''
           source: '.'
-          target: '/testegit'.
+          target: '/testegit'
