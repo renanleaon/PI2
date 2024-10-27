@@ -32,18 +32,23 @@ jobs:
           username: '${{ secrets.USERNAME }}'
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            sudo mv /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
+            if [ -f /etc/nginx/sites-available/default ]; then
+              sudo mv /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
+            fi
             echo 'server {
-            listen 80;
-            server_name 164.152.34.246;
-            location / {
-            proxy_pass http://127.0.0.1:8000;
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto $scheme;
-            }
+                listen 80;
+                server_name 164.152.34.246;
+                location / {
+                    proxy_pass http://127.0.0.1:8000;
+                    proxy_set_header Host $host;
+                    proxy_set_header X-Real-IP $remote_addr;
+                    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                    proxy_set_header X-Forwarded-Proto $scheme;
+                }
             }' | sudo tee /etc/nginx/sites-available/meuprojeto
+            if [ -L /etc/nginx/sites-enabled/meuprojeto ]; then
+              sudo rm /etc/nginx/sites-enabled/meuprojeto
+            fi
             sudo ln -s /etc/nginx/sites-available/meuprojeto /etc/nginx/sites-enabled/
             sudo systemctl restart nginx
 
