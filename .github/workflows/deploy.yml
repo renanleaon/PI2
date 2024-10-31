@@ -1,4 +1,4 @@
-name: 'Deploy para VPS'
+name: Deploy to VPS
 
 on:
   push:
@@ -8,38 +8,25 @@ on:
 jobs:
   build_deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: 'Baixar o código'
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: 'Criar diretório no VPS'
+      - name: Create directory on VPS
         uses: appleboy/ssh-action@v1.1.0
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          password: ${{ secrets.VPS_PASSWORD }}
           script: |
-            mkdir -p /testgit  # Cria a pasta se não existir
+            mkdir -p /caminho/da/pasta  # Comando para criar a pasta, se não existir
 
-      - name: 'Copiar arquivos para VPS'
+      - name: Copy files to VPS
         uses: appleboy/scp-action@v0.1.7
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          password: ${{ secrets.VPS_PASSWORD }}
+          port: 22
           source: '.'
-          target: '/testgit'
-
-      # Descomente e ajuste os passos conforme necessário
-      # - name: 'build da aplicação'
-      #   uses: appleboy/ssh-action@v1.1.0
-      #   with:
-      #     host: ${{ secrets.HOST }}
-      #     username: ${{ secrets.USERNAME }}
-      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
-      #     script: |
-      #       cd /testgit
-      #       composer install --no-dev --no-progress -a
-      #       php artisan optimize
-      #       chown -R ubuntu:ubuntu .
+          target: '/home/ubuntu/testegit'
