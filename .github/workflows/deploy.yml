@@ -13,6 +13,15 @@ jobs:
       - name: 'Baixar o código'
         uses: actions/checkout@v4
 
+      - name: 'Criar diretório no VPS'
+        uses: appleboy/ssh-action@v1.1.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            mkdir -p /testgit  # Cria a pasta se não existir
+
       - name: 'Copiar arquivos para VPS'
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -22,7 +31,8 @@ jobs:
           source: '.'
           target: '/testgit'
 
-      # - name: 'build da aplicaçao'
+      # Descomente e ajuste os passos conforme necessário
+      # - name: 'build da aplicação'
       #   uses: appleboy/ssh-action@v1.1.0
       #   with:
       #     host: ${{ secrets.HOST }}
