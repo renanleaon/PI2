@@ -1,0 +1,20 @@
+version: '3.8'  # Adicione esta linha para definir a versão do Docker Compose
+
+services:
+  db:
+    image: postgres:15.8-alpine3.20  # Corrigido
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: root  # Corrigido
+      POSTGRES_DB: mydb  # Corrigido
+
+  pgadmin:
+    image: dpage/pgadmin4:8.11.0
+    ports:
+      - 5050:80  # Corrigido (espaçamento)
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@user.com
+      PGADMIN_DEFAULT_PASSWORD: secret
+    depends_on:
+      - db
