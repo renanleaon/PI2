@@ -15,8 +15,8 @@ jobs:
       - name: Create directory on VPS
         uses: appleboy/ssh-action@v1.1.0
         with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USERNAME }}
-          password: ${{ secrets.VPS_PASSWORD }}
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             mkdir -p
