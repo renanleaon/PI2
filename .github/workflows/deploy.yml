@@ -22,14 +22,14 @@ jobs:
           source: '.'
           target: '/testgit'
 
-      - name: 'build da aplicaçao'
-        uses: appleboy/ssh-action@v1.1.0
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cd /testgit
-            composer install --no-dev --no-progress -a
-            php artisan optimize
-            chown -R ubuntu:ubuntu .
+      # - name: 'build da aplicaçao'
+      #   uses: appleboy/ssh-action@v1.1.0
+      #   with:
+      #     host: ${{ secrets.HOST }}
+      #     username: ${{ secrets.USERNAME }}
+      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #     script: |
+      #       cd /testgit
+      #       composer install --no-dev --no-progress -a
+      #       php artisan optimize
+      #       chown -R ubuntu:ubuntu .
